@@ -3,10 +3,804 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>我的个人作品集</title>
+  <title>FruitTea | 游戏策划 / 玩法程序作品集</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --bg-soft: #151922;
+      --card: rgba(255, 255, 255, 0.075);
+      --card-strong: rgba(255, 255, 255, 0.12);
+      --text: #f2f5ff;
+      --muted: #a8b0c3;
+      --line: rgba(255, 255, 255, 0.12);
+      --accent: #79f2c0;
+      --accent-2: #7aa8ff;
+      --accent-3: #ffcc66;
+      --danger: #ff7a90;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(121, 242, 192, 0.18), transparent 32rem),
+        radial-gradient(circle at 80% 20%, rgba(122, 168, 255, 0.16), transparent 28rem),
+        linear-gradient(135deg, #0d0f14 0%, #111722 52%, #0d0f14 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(13, 15, 20, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 30px rgba(121, 242, 192, 0.35);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 86px 0 56px;
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .profile-card,
+    .section-card,
+    .project-card,
+    .detail-card,
+    .jam-card,
+    .prototype-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      padding: 42px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      bottom: -140px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(121, 242, 192, 0.22), transparent 68%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.85;
+      max-width: 680px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      font-weight: 700;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .button.primary {
+      color: #07100d;
+      background: linear-gradient(135deg, var(--accent), #a6ffe0);
+      border: 0;
+    }
+
+    .profile-card {
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .link-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .link-list a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      letter-spacing: -0.04em;
+    }
+
+    .section-head p {
+      margin: 8px 0 0;
+      max-width: 640px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(121, 242, 192, 0.36);
+    }
+
+    .project-cover {
+      min-height: 190px;
+      background:
+        linear-gradient(135deg, rgba(121, 242, 192, 0.14), rgba(122, 168, 255, 0.1)),
+        #111722;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.42);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .project-cover img {
+      width: 100%;
+      height: 100%;
+      min-height: 190px;
+      object-fit: cover;
+    }
+
+    .project-body {
+      padding: 22px;
+    }
+
+    .project-body h3 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .project-body p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 22px;
+    }
+
+    .detail-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      min-height: 380px;
+    }
+
+    .detail-media {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(121, 242, 192, 0.2), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(122, 168, 255, 0.18), transparent 34%),
+        rgba(255, 255, 255, 0.045);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.42);
+      font-weight: 800;
+      padding: 28px;
+      text-align: center;
+    }
+
+    .detail-content {
+      padding: 34px;
+    }
+
+    .detail-content h3 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -0.045em;
+    }
+
+    .meta {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .detail-content p {
+      color: var(--muted);
+      line-height: 1.82;
+      margin: 18px 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .feature {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .feature span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .prototype-grid,
+    .jam-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .prototype-card,
+    .jam-card {
+      border-radius: var(--radius-lg);
+      padding: 26px;
+    }
+
+    .prototype-card h3,
+    .jam-card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    .prototype-card p,
+    .jam-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.78;
+    }
+
+    .footer {
+      padding: 56px 0 80px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .note {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(255, 255, 255, 0.22);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .detail-card {
+        grid-template-columns: 1fr;
+      }
+
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .hero-card,
+      .profile-card,
+      .detail-content {
+        padding: 24px;
+      }
+
+      .project-grid,
+      .prototype-grid,
+      .jam-grid,
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello World</h1>
-  <p>我的个人作品集网站正在搭建中。</p>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="logo" href="#top" aria-label="返回顶部">
+        <span class="logo-mark"></span>
+        <span>FruitTea Portfolio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#projects">项目</a>
+        <a href="#details">重点介绍</a>
+        <a href="#prototypes">原型</a>
+        <a href="#gamejam">Game Jam</a>
+        <a href="#contact">链接</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top" class="page">
+    <header class="hero">
+      <div class="hero-card">
+        <span class="eyebrow">Game Designer / Gameplay Programmer</span>
+        <h1>游戏策划与玩法程序作品集</h1>
+        <p>
+          这里展示我独立制作与原型验证过的游戏项目，覆盖 2D 肉鸽、弹珠、挂机、触屏街机、平台跳跃、随机地牢与 Game Jam 作品。重点呈现玩法设计、系统实现、数值调试与视觉表现能力。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#details">查看重点项目</a>
+          <a class="button" href="https://fruitteeeeea.itch.io/" target="_blank" rel="noreferrer">Itch.io 试玩</a>
+          <a class="button" href="https://github.com/fruitteeeeea" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <aside class="profile-card" id="contact">
+        <div>
+          <div class="profile-grid">
+            <div class="stat"><strong>6+</strong><span>主要个人项目</span></div>
+            <div class="stat"><strong>4+</strong><span>玩法原型</span></div>
+            <div class="stat"><strong>2</strong><span>Game Jam 作品</span></div>
+            <div class="stat"><strong>Godot</strong><span>主要开发工具</span></div>
+          </div>
+          <div class="tag-row">
+            <span class="tag">玩法设计</span>
+            <span class="tag">系统设计</span>
+            <span class="tag">数值调试</span>
+            <span class="tag">Godot / GDScript</span>
+            <span class="tag">独立开发</span>
+          </div>
+        </div>
+        <div class="link-list">
+          <a href="https://github.com/fruitteeeeea" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+          <a href="https://fruitteeeeea.itch.io/" target="_blank" rel="noreferrer">Itch.io <span>↗</span></a>
+          <a href="https://steamcommunity.com/id/qzq233/" target="_blank" rel="noreferrer">Steam Profile <span>↗</span></a>
+        </div>
+      </aside>
+    </header>
+
+    <section id="projects">
+      <div class="section-head">
+        <div>
+          <h2>按项目浏览</h2>
+          <p>从完整项目、玩法原型到 Game Jam 作品，快速了解每个项目的类型、核心玩法与开发重点。</p>
+        </div>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-cover">ProjectRogueBall<br />图片：assets/rogueball-cover.png</div>
+          <div class="project-body">
+            <h3>ProjectRogueBall</h3>
+            <p>2D 像素弹珠肉鸽。融合打砖块、道具构筑、农作物成长与 Boss 挑战，目标是把单局体验压缩到更轻量的 5 分钟节奏。</p>
+            <div class="tag-row"><span class="tag">肉鸽</span><span class="tag">弹珠</span><span class="tag">数值调试</span></div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-cover">ProjectIdle<br />图片：assets/idle-cover.png</div>
+          <div class="project-body">
+            <h3>ProjectIdle</h3>
+            <p>2D 像素增量挂机游戏。重点体现成长曲线、资源收集、池化对象与轻量视觉反馈。</p>
+            <div class="tag-row"><span class="tag">挂机</span><span class="tag">数值设计</span><span class="tag">对象池</span></div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-cover">ProjectTheBazzel<br />图片：assets/bazzel-cover.png</div>
+          <div class="project-body">
+            <h3>ProjectTheBazzel</h3>
+            <p>大巴扎式弹珠游戏。结合路线探索、格子背包管理、道具组合与回合制弹珠战斗。</p>
+            <div class="tag-row"><span class="tag">背包管理</span><span class="tag">回合制</span><span class="tag">状态机</span></div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-cover">ProjectDogFight<br />图片：assets/dogfight-cover.png</div>
+          <div class="project-body">
+            <h3>ProjectDogFight</h3>
+            <p>2D 触屏街机飞机狗斗游戏。强调高速移动、敌人行为树、矢量图形 HUD 与复古未来风表现。</p>
+            <div class="tag-row"><span class="tag">触屏</span><span class="tag">街机</span><span class="tag">行为树</span></div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-cover">ProjectDrill<br />图片：assets/drill-cover.png</div>
+          <div class="project-body">
+            <h3>ProjectDrill</h3>
+            <p>带钻头的 2D 平台跳跃游戏。玩家可以钻入特定地形，利用状态切换、关卡美术与粒子反馈形成差异化体验。</p>
+            <div class="tag-row"><span class="tag">平台跳跃</span><span class="tag">状态机</span><span class="tag">粒子反馈</span></div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-cover">ProjectTinnyDungeon<br />图片：assets/tinny-dungeon-cover.png</div>
+          <div class="project-body">
+            <h3>ProjectTinnyDungeon</h3>
+            <p>2D 像素俯视角地牢肉鸽。玩家探索随机迷宫、搜刮战利品，并向终点 Boss 推进。</p>
+            <div class="tag-row"><span class="tag">随机地牢</span><span class="tag">俯视角</span><span class="tag">Boss</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="details">
+      <div class="section-head">
+        <div>
+          <h2>重点项目介绍</h2>
+          <p>下面的内容适合作为面试官重点浏览区域：每个项目都拆成玩法设计、程序设计与视觉设计三个角度。</p>
+        </div>
+      </div>
+
+      <div class="detail-list">
+        <article class="detail-card">
+          <div class="detail-media">ProjectRogueBall<br />建议替换为战斗截图 / 道具选择截图</div>
+          <div class="detail-content">
+            <span class="meta">2D Pixel Roguelike</span>
+            <h3>ProjectRogueBall</h3>
+            <p>弹珠肉鸽游戏。玩家击碎不断下落的方块敌人，在局内升级弹珠技能、获取装备、种植与收割农作物，最终挑战关底 Boss。</p>
+            <div class="feature-grid">
+              <div class="feature"><strong>玩法设计</strong><span>将弹珠打砖块与肉鸽道具选择结合，缩短单局节奏，让对局更适合快速体验。</span></div>
+              <div class="feature"><strong>程序设计</strong><span>使用 ImGui 调试面板实时观察伤害、成长曲线与压力比例，辅助数值调整。</span></div>
+              <div class="feature"><strong>道具系统</strong><span>通过触发系统与钩子节点实现不同阶段的道具加成，方便扩展更多效果。</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-media">ProjectTheBazzel<br />建议替换为背包 / 地图 / 战斗截图</div>
+          <div class="detail-content">
+            <span class="meta">Backpack + Pachinko + Turn-based</span>
+            <h3>ProjectTheBazzel</h3>
+            <p>一个结合《杀戮尖塔》路线探索、《大巴扎》和《背包英雄》式背包管理的弹珠游戏。玩家通过路线选择、道具摆放与回合动作触发不同玩法流派。</p>
+            <div class="feature-grid">
+              <div class="feature"><strong>路线探索</strong><span>提供分支路线，让玩家根据风险和奖励选择下一步目标。</span></div>
+              <div class="feature"><strong>背包管理</strong><span>设计 10 种道具与多种组合方式，让物品位置与构筑策略产生关联。</span></div>
+              <div class="feature"><strong>流程控制</strong><span>使用状态机管理回合制游戏流程，并用 ImGui 实时调试道具数值。</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-media">ProjectDogFight<br />建议替换为 HUD / 战斗截图</div>
+          <div class="detail-content">
+            <span class="meta">2D Touch Arcade</span>
+            <h3>ProjectDogFight</h3>
+            <p>触屏街机式飞机狗斗游戏。核心目标是在限定时间内存活，并通过高速机动、敌机追逐与战斗反馈营造挑战和爽感。</p>
+            <div class="feature-grid">
+              <div class="feature"><strong>角色状态机</strong><span>用状态机管理关闭引擎、开启引擎、加速等操作，让移动逻辑更清晰。</span></div>
+              <div class="feature"><strong>敌人行为树</strong><span>敌人会根据当前局势做出追击、横移、攻击等不同应对。</span></div>
+              <div class="feature"><strong>视觉表现</strong><span>使用矢量图形、扁平化 HUD、粒子特效与故障艺术塑造复古未来感。</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-media">ProjectDrill<br />建议替换为钻地 / 关卡截图</div>
+          <div class="detail-content">
+            <span class="meta">2D Platformer</span>
+            <h3>ProjectDrill</h3>
+            <p>一个以“钻入特定土壤”为差异化机制的平台跳跃游戏。玩家在地面、泥土和冲刺等状态之间切换，探索关卡并处理敌人。</p>
+            <div class="feature-grid">
+              <div class="feature"><strong>核心机制</strong><span>玩家使用钻头进入特殊地形，改变常规平台跳跃的移动路径。</span></div>
+              <div class="feature"><strong>状态机</strong><span>管理地面、泥土、冲刺等状态，减少复杂移动逻辑之间的耦合。</span></div>
+              <div class="feature"><strong>美术反馈</strong><span>通过粒子特效区分钻入、攻击敌人和拾取金币等关键行为。</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="prototypes">
+      <div class="section-head">
+        <div>
+          <h2>游戏原型</h2>
+          <p>这些原型用于验证不同玩法方向、关卡结构与系统设计。</p>
+        </div>
+      </div>
+
+      <div class="prototype-grid">
+        <article class="prototype-card">
+          <h3>FirstPersonDungeon</h3>
+          <p>第一人称地牢原型。参考《塞尔达传说：时之笛》和《黑暗之魂》的环状迷宫结构，使用白盒关卡搭建并填充美术素材。</p>
+          <div class="tag-row"><span class="tag">第一人称</span><span class="tag">迷宫设计</span><span class="tag">白盒关卡</span></div>
+        </article>
+        <article class="prototype-card">
+          <h3>ProjectDrift</h3>
+          <p>3D 街机漂移游戏原型。玩家通过漂移积累更高分数，重点验证车辆手感与得分反馈。</p>
+          <div class="tag-row"><span class="tag">3D</span><span class="tag">漂移</span><span class="tag">街机</span></div>
+        </article>
+        <article class="prototype-card">
+          <h3>ProjectFactor</h3>
+          <p>等距视角运输线游戏原型，探索资源运输、线路布局和空间规划的玩法可能。</p>
+          <div class="tag-row"><span class="tag">等距视角</span><span class="tag">运输线</span><span class="tag">规划</span></div>
+        </article>
+        <article class="prototype-card">
+          <h3>ProjectJumper</h3>
+          <p>竖屏平台跳跃原型，模仿 Downwell 式的纵向推进体验，适合继续扩展为移动端轻量游戏。</p>
+          <div class="tag-row"><span class="tag">竖屏</span><span class="tag">平台跳跃</span><span class="tag">移动端</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="gamejam">
+      <div class="section-head">
+        <div>
+          <h2>Game Jam 作品</h2>
+          <p>Game Jam 作品均在限定时间内围绕主题独立完成，覆盖玩法、美术与程序。</p>
+        </div>
+      </div>
+
+      <div class="jam-grid">
+        <article class="jam-card">
+          <span class="meta">GMTK 2024 · Scale</span>
+          <h3>Scale the Nuts</h3>
+          <p>玩家需要躲避从天而降的坚果，并在限定时间内到达屏幕顶端。为了契合主题，玩家拥有一把可以放大或缩小坚果的枪，用尺寸变化创造生存空间。</p>
+          <div class="hero-actions">
+            <a class="button" href="https://fruitteeeeea.itch.io/gmtk24-scale-the-nuts" target="_blank" rel="noreferrer">试玩链接 ↗</a>
+          </div>
+        </article>
+
+        <article class="jam-card">
+          <span class="meta">GMTK 2025 · Loop</span>
+          <h3>Loop Working</h3>
+          <p>玩家在日复一日的循环中进行票券仿制工作。作品围绕“Loop”主题设计重复劳动、流程变化与玩家操作之间的关系。</p>
+          <div class="hero-actions">
+            <a class="button" href="https://fruitteeeeea.itch.io/loopworking" target="_blank" rel="noreferrer">试玩链接 ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-card note">
+        <strong>图片替换说明：</strong> 当前页面中的图片位置仍是占位内容。建议把截图统一放进 GitHub 仓库的 <code>assets/</code> 文件夹中，例如 <code>assets/rogueball-cover.png</code>，然后把对应的 <code>&lt;div class="project-cover"&gt;</code> 替换为 <code>&lt;img src="assets/rogueball-cover.png" alt="ProjectRogueBall 游戏截图"&gt;</code>。
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>“你做的前十个游戏都是垃圾，所以赶紧做掉吧。” — Jesse Schell《游戏设计艺术》</p>
+    </footer>
+  </main>
 </body>
 </html>
