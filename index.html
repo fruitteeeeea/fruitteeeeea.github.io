@@ -185,6 +185,14 @@
       letter-spacing: -0.06em;
     }
 
+    .hero-subtitle {
+      margin: 16px 0 0;
+      color: var(--accent);
+      font-size: clamp(18px, 2.4vw, 26px);
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
     .hero p {
       margin: 24px 0 0;
       color: var(--muted);
@@ -574,7 +582,8 @@
     <header class="hero">
       <div class="hero-card">
         <span class="eyebrow">Game Designer / Gameplay Programmer</span>
-        <h1>游戏策划与玩法程序作品集</h1>
+        <h1>fruittea 游戏工坊</h1>
+        <div class="hero-subtitle">游戏策划 / 技术策划 / 玩法程序作品集</div>
         <p>
           这里展示我独立制作与原型验证过的游戏项目，覆盖 2D 肉鸽、弹珠、挂机、触屏街机、平台跳跃、随机地牢与 Game Jam 作品。重点呈现玩法设计、系统实现、数值调试与视觉表现能力。
         </p>
@@ -619,7 +628,7 @@
 
       <div class="project-grid">
         <article class="project-card">
-          <img src="assets\ProjectBox.png" alt="First Person Dungeon 项目截图">
+          <img src="assets/ProjectBox.png" alt="ProjectRogueBall 项目截图">
           <div class="project-body">
             <h3>ProjectRogueBall</h3>
             <p>2D 像素弹珠肉鸽。融合打砖块、道具构筑、农作物成长与 Boss 挑战，目标是把单局体验压缩到更轻量的 5 分钟节奏。</p>
@@ -628,7 +637,7 @@
         </article>
 
         <article class="project-card">
-          <img src="assets\ProjectBox.png" alt="First Person Dungeon 项目截图">
+          <img src="assets/ProjectBox.png" alt="ProjectIdle 项目截图">
           <div class="project-body">
             <h3>ProjectIdle</h3>
             <p>2D 像素增量挂机游戏。重点体现成长曲线、资源收集、池化对象与轻量视觉反馈。</p>
@@ -637,7 +646,7 @@
         </article>
 
         <article class="project-card">
-          <img src="assets\ProjectBox.png" alt="First Person Dungeon 项目截图">
+          <img src="assets/ProjectBox.png" alt="ProjectTheBazzel 项目截图">
           <div class="project-body">
             <h3>ProjectTheBazzel</h3>
             <p>大巴扎式弹珠游戏。结合路线探索、格子背包管理、道具组合与回合制弹珠战斗。</p>
@@ -646,7 +655,7 @@
         </article>
 
         <article class="project-card">
-          <img src="assets\ProjectBox.png" alt="First Person Dungeon 项目截图">
+          <img src="assets/ProjectBox.png" alt="ProjectDogFight 项目截图">
           <div class="project-body">
             <h3>ProjectDogFight</h3>
             <p>2D 触屏街机飞机狗斗游戏。强调高速移动、敌人行为树、矢量图形 HUD 与复古未来风表现。</p>
@@ -655,7 +664,7 @@
         </article>
 
         <article class="project-card">
-          <img src="assets\ProjectBox.png" alt="First Person Dungeon 项目截图">
+          <img src="assets/ProjectBox.png" alt="ProjectDrill 项目截图">
           <div class="project-body">
             <h3>ProjectDrill</h3>
             <p>带钻头的 2D 平台跳跃游戏。玩家可以钻入特定地形，利用状态切换、关卡美术与粒子反馈形成差异化体验。</p>
@@ -664,7 +673,7 @@
         </article>
 
         <article class="project-card">
-          <img src="assets\ProjectBox.png" alt="First Person Dungeon 项目截图">
+          <img src="assets/ProjectBox.png" alt="ProjectTinnyDungeon 项目截图">
           <div class="project-body">
             <h3>ProjectTinnyDungeon</h3>
             <p>2D 像素俯视角地牢肉鸽。玩家探索随机迷宫、搜刮战利品，并向终点 Boss 推进。</p>
@@ -685,9 +694,8 @@
       <div class="detail-list">
         <article class="detail-card">
           <div class="detail-media">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets\viedo_loading.gif" aria-label="ProjectRogueBall 视频演示">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/viedo_loading.gif" aria-label="ProjectRogueBall 视频演示">
               <source src="assets/rogueball-demo.mp4" type="video/mp4">
-              你的浏览器不支持 video 标签。
             </video>
           </div>
           <div class="detail-content">
@@ -704,28 +712,26 @@
 
         <article class="detail-card">
           <div class="detail-media">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets\viedo_loading.gif" aria-label="ProjectRogueBall 视频演示">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/viedo_loading.gif" aria-label="ProjectIdle 视频演示">
               <source src="assets/idle-demo.mp4" type="video/mp4">
-              你的浏览器不支持 video 标签。
             </video>
           </div>
           <div class="detail-content">
-            <span class="meta">Backpack + Pachinko + Turn-based</span>
+            <span class="meta">2D Pixel Idle Game</span>
             <h3>ProjectIdle</h3>
             <p>2D 像素增量挂机游戏。重点体现成长曲线、资源收集、池化对象与轻量视觉反馈。</p>
             <div class="feature-grid">
-              <div class="feature"><strong>路线探索</strong><span>提供分支路线，让玩家根据风险和奖励选择下一步目标。</span></div>
-              <div class="feature"><strong>背包管理</strong><span>设计 10 种道具与多种组合方式，让物品位置与构筑策略产生关联。</span></div>
-              <div class="feature"><strong>流程控制</strong><span>使用状态机管理回合制游戏流程，并用 ImGui 实时调试道具数值。</span></div>
+              <div class="feature"><strong>成长循环</strong><span>围绕资源收集、数值增长和持续收益设计核心循环，让玩家能感受到逐步变强的过程。</span></div>
+              <div class="feature"><strong>资源收集</strong><span>通过木头等资源掉落与收集行为，验证挂机游戏中的资源反馈和成长节奏。</span></div>
+              <div class="feature"><strong>对象池优化</strong><span>对频繁出现的掉落资源使用对象池，减少运行过程中的重复生成和销毁。</span></div>
             </div>
           </div>
         </article>
 
         <article class="detail-card">
           <div class="detail-media">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets\viedo_loading.gif" aria-label="ProjectTheBazzel 视频演示">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/viedo_loading.gif" aria-label="ProjectTheBazzel 视频演示">
               <source src="assets/thebazzel-demo.mp4" type="video/mp4">
-              你的浏览器不支持 video 标签。
             </video>
           </div>
           <div class="detail-content">
@@ -742,9 +748,8 @@
 
         <article class="detail-card">
           <div class="detail-media">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets\viedo_loading.gif" aria-label="ProjectDogFight 视频演示">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/viedo_loading.gif" aria-label="ProjectDogFight 视频演示">
               <source src="assets/dogfight-demo.mp4" type="video/mp4">
-              你的浏览器不支持 video 标签。
             </video>
           </div>
           <div class="detail-content">
@@ -761,9 +766,8 @@
 
         <article class="detail-card">
           <div class="detail-media">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets\viedo_loading.gif" aria-label="ProjectDrill 视频演示">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/viedo_loading.gif" aria-label="ProjectDrill 视频演示">
               <source src="assets/drill-demo.mp4" type="video/mp4">
-              你的浏览器不支持 video 标签。
             </video>
           </div>
           <div class="detail-content">
@@ -838,12 +842,6 @@
             <a class="button" href="https://fruitteeeeea.itch.io/loopworking" target="_blank" rel="noreferrer">试玩链接 ↗</a>
           </div>
         </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-card note">
-        <strong>图片替换说明：</strong> 当前页面中的图片位置仍是占位内容。建议把截图统一放进 GitHub 仓库的 <code>assets/</code> 文件夹中，例如 <code>assets/rogueball-cover.png</code>，然后把对应的 <code>&lt;div class="project-cover"&gt;</code> 替换为 <code>&lt;img src="assets/rogueball-cover.png" alt="ProjectRogueBall 游戏截图"&gt;</code>。
       </div>
     </section>
 
