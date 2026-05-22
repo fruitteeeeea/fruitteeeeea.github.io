@@ -99,12 +99,10 @@
       letter-spacing: 0.02em;
     }
 
-    .logo-mark {
-      width: 34px;
+    .logo img {
+      width: auto;
       height: 34px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 30px rgba(121, 242, 192, 0.35);
+      object-fit: contain;
     }
 
     .nav-links {
@@ -431,6 +429,20 @@
       padding: 34px;
     }
 
+    .detail-content.with-play-link {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .play-link {
+      align-self: flex-end;
+      margin-top: 28px;
+    }
+
+    .detail-content .play-link {
+      margin-top: clamp(28px, 6vw, 56px);
+    }
+
     .detail-content h3 {
       margin: 0 0 8px;
       font-size: clamp(28px, 4vw, 42px);
@@ -486,7 +498,32 @@
     .prototype-card,
     .jam-card {
       border-radius: var(--radius-lg);
+    }
+
+    .prototype-card {
+      overflow: hidden;
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+
+    .prototype-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(122, 168, 255, 0.36);
+    }
+
+    .prototype-card img {
+      width: 100%;
+      aspect-ratio: 21 / 8;
+      object-fit: cover;
+    }
+
+    .prototype-body,
+    .jam-card {
       padding: 26px;
+    }
+
+    .jam-card {
+      display: flex;
+      flex-direction: column;
     }
 
     .prototype-card h3,
@@ -565,8 +602,8 @@
   <nav class="nav">
     <div class="nav-inner">
       <a class="logo" href="#top" aria-label="返回顶部">
-        <span class="logo-mark"></span>
-        <span>FruitTea Portfolio</span>
+        <img src="assets/portfolio.jpg" alt="FruitTea Portfolio">
+        <span>陈庭辉</span>
       </a>
       <div class="nav-links">
         <a href="#projects">项目</a>
@@ -687,7 +724,7 @@
       <div class="section-head">
         <div>
           <h2>重点项目介绍</h2>
-          <p>下面的内容适合作为面试官重点浏览区域：每个项目都拆成玩法设计、程序设计与视觉设计三个角度。</p>
+          <p>每个项目都拆成玩法设计、程序设计与视觉设计三个角度。</p>
         </div>
       </div>
 
@@ -752,7 +789,7 @@
               <source src="assets/dogfight-demo.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="detail-content">
+          <div class="detail-content with-play-link">
             <span class="meta">2D Touch Arcade</span>
             <h3>ProjectDogFight</h3>
             <p>触屏街机式飞机狗斗游戏。核心目标是在限定时间内存活，并通过高速机动、敌机追逐与战斗反馈营造挑战和爽感。</p>
@@ -761,6 +798,7 @@
               <div class="feature"><strong>敌人行为树</strong><span>敌人会根据当前局势做出追击、横移、攻击等不同应对。</span></div>
               <div class="feature"><strong>视觉表现</strong><span>使用矢量图形、扁平化 HUD、粒子特效与故障艺术塑造复古未来感。</span></div>
             </div>
+            <a class="button primary play-link" href="https://fruitteeeeea.itch.io/projectdogfight" target="_blank" rel="noreferrer">试玩链接</a>
           </div>
         </article>
 
@@ -770,7 +808,7 @@
               <source src="assets/drill-demo.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="detail-content">
+          <div class="detail-content with-play-link">
             <span class="meta">2D Platformer</span>
             <h3>ProjectDrill</h3>
             <p>一个以“钻入特定土壤”为差异化机制的平台跳跃游戏。玩家在地面、泥土和冲刺等状态之间切换，探索关卡并处理敌人。</p>
@@ -779,6 +817,7 @@
               <div class="feature"><strong>状态机</strong><span>管理地面、泥土、冲刺等状态，减少复杂移动逻辑之间的耦合。</span></div>
               <div class="feature"><strong>美术反馈</strong><span>通过粒子特效区分钻入、攻击敌人和拾取金币等关键行为。</span></div>
             </div>
+            <a class="button primary play-link" href="https://fruitteeeeea.itch.io/projectdrill" target="_blank" rel="noreferrer">试玩链接</a>
           </div>
         </article>
       </div>
@@ -794,24 +833,36 @@
 
       <div class="prototype-grid">
         <article class="prototype-card">
-          <h3>FirstPersonDungeon</h3>
-          <p>第一人称地牢原型。参考《塞尔达传说：时之笛》和《黑暗之魂》的环状迷宫结构，使用白盒关卡搭建并填充美术素材。</p>
-          <div class="tag-row"><span class="tag">第一人称</span><span class="tag">迷宫设计</span><span class="tag">白盒关卡</span></div>
+          <img src="assets/FirstPersonDungeon.png" alt="FirstPersonDungeon 原型截图">
+          <div class="prototype-body">
+            <h3>FirstPersonDungeon</h3>
+            <p>第一人称地牢原型。参考《塞尔达传说：时之笛》和《黑暗之魂》的环状迷宫结构，使用白盒关卡搭建并填充美术素材。</p>
+            <div class="tag-row"><span class="tag">第一人称</span><span class="tag">迷宫设计</span><span class="tag">白盒关卡</span></div>
+          </div>
         </article>
         <article class="prototype-card">
-          <h3>ProjectDrift</h3>
-          <p>3D 街机漂移游戏原型。玩家通过漂移积累更高分数，重点验证车辆手感与得分反馈。</p>
-          <div class="tag-row"><span class="tag">3D</span><span class="tag">漂移</span><span class="tag">街机</span></div>
+          <img src="assets/ProjectDrift.png" alt="ProjectDrift 原型截图">
+          <div class="prototype-body">
+            <h3>ProjectDrift</h3>
+            <p>3D 街机漂移游戏原型。玩家通过漂移积累更高分数，重点验证车辆手感与得分反馈。</p>
+            <div class="tag-row"><span class="tag">3D</span><span class="tag">漂移</span><span class="tag">街机</span></div>
+          </div>
         </article>
         <article class="prototype-card">
-          <h3>ProjectFactor</h3>
-          <p>等距视角运输线游戏原型，探索资源运输、线路布局和空间规划的玩法可能。</p>
-          <div class="tag-row"><span class="tag">等距视角</span><span class="tag">运输线</span><span class="tag">规划</span></div>
+          <img src="assets/ProjectFactor.png" alt="ProjectFactor 原型截图">
+          <div class="prototype-body">
+            <h3>ProjectFactor</h3>
+            <p>等距视角运输线游戏原型，探索资源运输、线路布局和空间规划的玩法可能。</p>
+            <div class="tag-row"><span class="tag">等距视角</span><span class="tag">运输线</span><span class="tag">规划</span></div>
+          </div>
         </article>
         <article class="prototype-card">
-          <h3>ProjectJumper</h3>
-          <p>竖屏平台跳跃原型，模仿 Downwell 式的纵向推进体验，适合继续扩展为移动端轻量游戏。</p>
-          <div class="tag-row"><span class="tag">竖屏</span><span class="tag">平台跳跃</span><span class="tag">移动端</span></div>
+          <img src="assets/ProjectBox.png" alt="ProjectJumper 原型截图">
+          <div class="prototype-body">
+            <h3>ProjectJumper</h3>
+            <p>竖屏平台跳跃原型，模仿 Downwell 式的纵向推进体验，适合继续扩展为移动端轻量游戏。</p>
+            <div class="tag-row"><span class="tag">竖屏</span><span class="tag">平台跳跃</span><span class="tag">移动端</span></div>
+          </div>
         </article>
       </div>
     </section>
@@ -829,18 +880,14 @@
           <span class="meta">GMTK 2024 · Scale</span>
           <h3>Scale the Nuts</h3>
           <p>玩家需要躲避从天而降的坚果，并在限定时间内到达屏幕顶端。为了契合主题，玩家拥有一把可以放大或缩小坚果的枪，用尺寸变化创造生存空间。</p>
-          <div class="hero-actions">
-            <a class="button" href="https://fruitteeeeea.itch.io/gmtk24-scale-the-nuts" target="_blank" rel="noreferrer">试玩链接 ↗</a>
-          </div>
+          <a class="button primary play-link" href="https://fruitteeeeea.itch.io/gmtk24-scale-the-nuts" target="_blank" rel="noreferrer">试玩链接</a>
         </article>
 
         <article class="jam-card">
           <span class="meta">GMTK 2025 · Loop</span>
           <h3>Loop Working</h3>
           <p>玩家在日复一日的循环中进行票券仿制工作。作品围绕“Loop”主题设计重复劳动、流程变化与玩家操作之间的关系。</p>
-          <div class="hero-actions">
-            <a class="button" href="https://fruitteeeeea.itch.io/loopworking" target="_blank" rel="noreferrer">试玩链接 ↗</a>
-          </div>
+          <a class="button primary play-link" href="https://fruitteeeeea.itch.io/loopworking" target="_blank" rel="noreferrer">试玩链接</a>
         </article>
       </div>
     </section>
