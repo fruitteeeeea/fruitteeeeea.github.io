@@ -350,6 +350,13 @@
       border-color: rgba(121, 242, 192, 0.36);
     }
 
+    .project-card .battlegalaxy-cover {
+      width: 100%;
+      aspect-ratio: 1866 / 1263;
+      object-fit: cover;
+      object-position: center top;
+    }
+
     .project-cover {
       min-height: 190px;
       background:
@@ -423,6 +430,17 @@
       min-height: 380px;
       object-fit: cover;
       display: block;
+    }
+
+    .battlegalaxy-media {
+      aspect-ratio: 1 / 1;
+      align-self: center;
+      width: 100%;
+    }
+
+    .battlegalaxy-media video {
+      min-height: 0;
+      object-fit: contain;
     }
 
     .detail-content {
@@ -621,9 +639,9 @@
       <div class="hero-card">
         <span class="eyebrow">Game Designer / Gameplay Programmer</span>
         <h1>fruittea 游戏工坊</h1>
-        <div class="hero-subtitle">游戏策划 / 技术策划 / 玩法程序作品集</div>
+        <div class="hero-subtitle">Unity开发 / 技术策划 / 玩法策划</div>
         <p>
-          这里展示我独立制作与原型验证过的游戏项目，覆盖 2D 肉鸽、弹珠、挂机、触屏街机、平台跳跃、随机地牢与 Game Jam 作品。重点呈现玩法设计、系统实现、数值调试与视觉表现能力。
+          这里展示我独立开发与原型验证的游戏项目，涵盖背包构筑、航线对战、2D 肉鸽、弹珠、挂机与平台跳跃等玩法。重点呈现使用 Unity 与 C# 独立完成玩法设计、系统实现、数值调试与着色器视觉表现的能力，并结合 AI Agent 与 Git 提升开发效率、管理项目迭代。
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#details">查看重点项目</a>
@@ -636,15 +654,16 @@
       <aside class="profile-card" id="contact">
         <div>
           <div class="profile-grid">
+            <div class="stat"><strong>1</strong><span>独立负责商业项目</span></div>
             <div class="stat"><strong>6+</strong><span>主要个人项目</span></div>
             <div class="stat"><strong>4+</strong><span>玩法原型</span></div>
-            <div class="stat"><strong>2</strong><span>Game Jam 作品</span></div>
             <div class="stat"><strong>Unity</strong><span>主要开发工具</span></div>
           </div>
           <div class="tag-row">
             <span class="tag">玩法设计</span>
             <span class="tag">系统设计</span>
             <span class="tag">数值调试</span>
+            <span class="tag">Unity / C#</span>
             <span class="tag">Godot / GDScript</span>
             <span class="tag">独立开发</span>
           </div>
@@ -667,6 +686,15 @@
       </div>
 
       <div class="project-grid">
+        <article class="project-card">
+          <img class="battlegalaxy-cover" src="assets/Preview-BattleGalaxy-Combat.png" alt="BattleGalaxy 航线对战阶段截图">
+          <div class="project-body">
+            <h3>BattleGalaxy</h3>
+            <p>2D Unity 策略对战游戏。通过背包整理强化飞机与装备的接触收益，再操控航线引导机群进攻或堵截敌机。</p>
+            <div class="tag-row"><span class="tag">Unity / C#</span><span class="tag">背包构筑</span><span class="tag">航线对战</span></div>
+          </div>
+        </article>
+
         <article class="project-card">
           <img src="assets/Preview-RogueBall.png" alt="ProjectRogueBall 项目截图">
           <div class="project-body">
@@ -711,15 +739,6 @@
             <div class="tag-row"><span class="tag">平台跳跃</span><span class="tag">状态机</span><span class="tag">粒子反馈</span></div>
           </div>
         </article>
-
-        <article class="project-card">
-          <img src="assets/Preview-ProjectTinnyDungeon.png" alt="ProjectTinnyDungeon 项目截图">
-          <div class="project-body">
-            <h3>ProjectTinnyDungeon</h3>
-            <p>2D 像素俯视角地牢肉鸽。玩家探索随机迷宫、搜刮战利品，并向终点 Boss 推进。</p>
-            <div class="tag-row"><span class="tag">随机地牢</span><span class="tag">俯视角</span><span class="tag">Boss</span></div>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -732,6 +751,24 @@
       </div>
 
       <div class="detail-list">
+        <article class="detail-card">
+          <div class="detail-media battlegalaxy-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/Preview-BattleGalaxy.png" aria-label="BattleGalaxy 背包构筑与航线对战视频演示">
+              <source src="assets/battlegalaxy-demo.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="detail-content">
+            <span class="meta">2D Unity · Backpack Building · Flight Path Combat</span>
+            <h3>BattleGalaxy</h3>
+            <p>一款结合背包整理与航线操控的 2D 策略对战游戏。准备阶段，玩家调整飞机与装备的摆放，通过接触关系提高装备加成收益；战斗阶段，玩家操控航线，引导生成的飞机进攻敌方或堵截敌机，将构筑策略转化为战场优势。</p>
+            <div class="feature-grid">
+              <div class="feature"><strong>玩法设计</strong><span>设计不同飞机与装备及其搭配关系，调整数值平衡；设计航线操控玩法，让战前构筑与战中决策共同影响对局。</span></div>
+              <div class="feature"><strong>程序设计</strong><span>独立使用 Unity 与 C# 开发，使用 AI Agent 加快开发，通过 Git 管理版本、调试面板辅助问题定位与玩法验证。</span></div>
+              <div class="feature"><strong>美术设计</strong><span>使用着色器制作流动星空背景，为简约飞机素材添加霓虹描边，呈现简洁科技风。</span></div>
+            </div>
+          </div>
+        </article>
+
         <article class="detail-card">
           <div class="detail-media">
             <video autoplay muted loop playsinline preload="metadata" poster="assets/viedo_loading.gif" aria-label="ProjectRogueBall 视频演示">
