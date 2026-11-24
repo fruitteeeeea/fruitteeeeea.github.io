@@ -193,7 +193,7 @@ for (const { title, href, meta, summary, slides } of projects3D) {
     current = (current + step + slides.length) % slides.length;
     const slide = slides[current];
     image.getAnimations().forEach(animation => animation.cancel());
-    imageLink.href = slide.src.replace(/\/([^/]+)\.webp$/, '/original/$1.png');
+    imageLink.href = slide.src.replace(/\/([^/]+)\.webp$/, '/original/$1.webp');
     imageLink.setAttribute('aria-label', '放大截图：' + slide.alt);
     image.alt = slide.alt;
     image.src = slide.src;
@@ -221,19 +221,37 @@ for (const { title, href, meta, summary, slides } of projects3D) {
 }
 
 const categories = document.querySelectorAll('.category-switch button');
-const video = document.querySelector('#games-2d video');
-video.pause();
+const demos = document.querySelectorAll('#games-2d video');
+function preloadDemo(video) {
+  if (video.preload !== 'auto') video.preload = 'auto';
+}
+if (document.readyState === 'complete') preloadDemo(demos[0]);
+else window.addEventListener('load', () => preloadDemo(demos[0]), { once: true });
+
+const preloadObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (entry.isIntersecting) {
+      preloadDemo(entry.target);
+      preloadObserver.unobserve(entry.target);
+    }
+  }
+}, { rootMargin: '100% 0px' });
+const playbackObserver = new IntersectionObserver(entries => {
+  for (const { target: video, isIntersecting } of entries) {
+    if (isIntersecting) video.play().catch(() => {});
+    else video.pause();
+  }
+});
+for (const demo of demos) {
+  preloadObserver.observe(demo);
+  playbackObserver.observe(demo);
+}
 for (const button of categories) {
   button.addEventListener('click', () => {
     for (const category of categories) {
       const selected = category === button;
       category.setAttribute('aria-pressed', String(selected));
       document.getElementById(category.getAttribute('aria-controls')).hidden = !selected;
-    }
-    if (document.getElementById('games-2d').hidden) {
-      video.pause();
-    } else {
-      video.play().catch(() => {});
     }
   });
 }
