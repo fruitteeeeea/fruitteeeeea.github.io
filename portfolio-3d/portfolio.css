@@ -5,6 +5,7 @@
 .featured { align-self: center; }
 .screen, .original { display: block; }
 .screen img, .original img { display: block; width: 100%; height: auto; }
+.dungeon-project .original img { aspect-ratio: 16 / 9; object-fit: contain; background: #101014; }
 .player-bar, .footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 .player-bar { padding: 18px 22px 8px; font-size: 20px; }
 .feature-caption { padding: 0 22px 18px; color: var(--muted); font-size: 14px; }
@@ -24,6 +25,7 @@
 section[id] { scroll-margin-top: 84px; }
 .chapters .section-head { margin-bottom: 12px; }
 .chapters h2 { font-size: clamp(24px, 3vw, 36px); }
+.project-video { display: block; width: 100%; height: auto; }
 figure { margin: 0 0 18px; border-radius: var(--radius-md); overflow: hidden; }
 .original { cursor: zoom-in; }
 figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 16px; font-size: 14px; }

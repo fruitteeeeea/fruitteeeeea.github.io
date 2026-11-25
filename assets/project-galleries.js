@@ -6,6 +6,48 @@ const projects3D = [
     "summary": "四名角色探索模块化地牢，拾取武器、搭配戒指技能，在成群的骷髅与关底 Boss 之间杀出一条路。",
     "slides": [
       {
+        "video": "portfolio-3d/assets/dungeon/main-loop.webm",
+        "poster": "portfolio-3d/assets/dungeon/main-loop.webp",
+        "alt": "地牢主循环",
+        "caption": "在商店整备后进入地牢，清理房间里的敌人、拾取战利品，最后查看本次远征的结算。"
+      },
+      {
+        "video": "portfolio-3d/assets/dungeon/breakables.webm",
+        "poster": "portfolio-3d/assets/dungeon/breakables.webp",
+        "alt": "场景破坏与掉落",
+        "caption": "角色挥锤砸碎房间里的木箱，散落的战利品以不同颜色的光柱标出位置。"
+      },
+      {
+        "video": "portfolio-3d/assets/dungeon/player-classes.webm",
+        "poster": "portfolio-3d/assets/dungeon/player-classes.webp",
+        "alt": "玩家职业",
+        "caption": "四名角色轮流攻击练习目标，可以对照剑、弓、法杖和重锤的出招动作。"
+      },
+      {
+        "video": "portfolio-3d/assets/dungeon/status-effects.webm",
+        "poster": "portfolio-3d/assets/dungeon/status-effects.webp",
+        "alt": "异常状态",
+        "caption": "角色连续攻击练习目标，目标身上的火焰、冰霜和头顶的状态图标随命中发生变化。"
+      },
+      {
+        "video": "portfolio-3d/assets/dungeon/crowd-combat.webm",
+        "poster": "portfolio-3d/assets/dungeon/crowd-combat.webp",
+        "alt": "人海优化",
+        "caption": "大批骷髅同时向角色聚拢，角色边移动边挥锤，一次攻击打出多组伤害数字。"
+      },
+      {
+        "video": "portfolio-3d/assets/dungeon/crystal-encounter.webm",
+        "poster": "portfolio-3d/assets/dungeon/crystal-encounter.webp",
+        "alt": "水晶遭遇战",
+        "caption": "角色绕着红色水晶迎击守卫，击倒与水晶绑定的敌人，逐步解除魂契。"
+      },
+      {
+        "video": "portfolio-3d/assets/dungeon/boss-fight.webm",
+        "poster": "portfolio-3d/assets/dungeon/boss-fight.webp",
+        "alt": "Boss 战",
+        "caption": "长枪 Boss 厄戎近身出招，角色在地面的攻击预警之间走位，寻找反击机会。"
+      },
+      {
         "src": "portfolio-3d/assets/dungeon/01-dungeon-loot.webp",
         "alt": "地牢出口附近的武器掉落",
         "caption": "房间出口旁落着一把刻印长剑，角色靠近后可以拾取，前方的通道通往下一间房。"
@@ -185,6 +227,14 @@ for (const { title, href, meta, summary, slides } of projects3D) {
   const image = imageLink.querySelector('img');
   const caption = gallery.querySelector('.gallery-caption p');
   const count = gallery.querySelector('.gallery-count');
+  let video;
+  if (slides.some(slide => slide.video)) {
+    video = document.createElement('video');
+    video.className = 'project-video';
+    video.controls = video.loop = video.muted = video.playsInline = true;
+    video.preload = 'none';
+    imageLink.after(video);
+  }
   let current = 0;
 
   let revision = 0;
@@ -193,15 +243,35 @@ for (const { title, href, meta, summary, slides } of projects3D) {
     current = (current + step + slides.length) % slides.length;
     const slide = slides[current];
     image.getAnimations().forEach(animation => animation.cancel());
-    imageLink.href = slide.src.replace(/\/([^/]+)\.webp$/, '/original/$1.webp');
-    imageLink.setAttribute('aria-label', '放大截图：' + slide.alt);
-    image.alt = slide.alt;
-    image.src = slide.src;
+    imageLink.hidden = Boolean(slide.video);
+    if (video) {
+      video.hidden = !slide.video;
+      if (slide.video) {
+        video.setAttribute('aria-label', slide.alt);
+        video.dataset.poster = slide.poster;
+        if (video.getAttribute('src') !== slide.video) {
+          video.src = slide.video;
+          projectVideoObserver.unobserve(video);
+          projectVideoObserver.observe(video);
+        }
+      } else {
+        video.pause();
+      }
+    }
+    if (!slide.video) {
+      imageLink.href = slide.src.replace(/\/([^/]+)\.webp$/, '/original/$1.webp');
+      imageLink.setAttribute('aria-label', '放大截图：' + slide.alt);
+      image.alt = slide.alt;
+      if (step) image.src = slide.src;
+      else projectCoversReady.then(() => {
+        if (revision === activeRevision) image.src = slide.src;
+      });
+    }
     slideTitle.textContent = slide.alt;
     caption.textContent = slide.caption;
     count.textContent = (current + 1) + ' / ' + slides.length;
 
-    if (step && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (step && !slide.video && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       image.decode().then(() => {
         if (revision !== activeRevision) return;
         image.animate([
@@ -212,7 +282,11 @@ for (const { title, href, meta, summary, slides } of projects3D) {
     }
   }
 
-  gallery.addEventListener('preview-step', event => showSlide(event.detail));
+  gallery.addEventListener('preview-step', event => {
+    let distance = event.detail;
+    while (slides[(current + distance + slides.length) % slides.length].video) distance += event.detail;
+    showSlide(distance);
+  });
   const [previous, next] = gallery.querySelectorAll('button');
   previous.addEventListener('click', () => showSlide(-1));
   next.addEventListener('click', () => showSlide(1));
@@ -221,37 +295,31 @@ for (const { title, href, meta, summary, slides } of projects3D) {
 }
 
 const categories = document.querySelectorAll('.category-switch button');
-const demos = document.querySelectorAll('#games-2d video');
-function preloadDemo(video) {
-  if (video.preload !== 'auto') video.preload = 'auto';
+function showCategory(id) {
+  for (const button of categories) {
+    const panel = document.getElementById(button.getAttribute('aria-controls'));
+    const selected = panel.id === id;
+    button.setAttribute('aria-pressed', String(selected));
+    panel.hidden = !selected;
+  }
 }
-if (document.readyState === 'complete') preloadDemo(demos[0]);
-else window.addEventListener('load', () => preloadDemo(demos[0]), { once: true });
 
-const preloadObserver = new IntersectionObserver(entries => {
-  for (const entry of entries) {
-    if (entry.isIntersecting) {
-      preloadDemo(entry.target);
-      preloadObserver.unobserve(entry.target);
-    }
-  }
-}, { rootMargin: '100% 0px' });
-const playbackObserver = new IntersectionObserver(entries => {
-  for (const { target: video, isIntersecting } of entries) {
-    if (isIntersecting) video.play().catch(() => {});
-    else video.pause();
-  }
-});
-for (const demo of demos) {
-  preloadObserver.observe(demo);
-  playbackObserver.observe(demo);
-}
 for (const button of categories) {
-  button.addEventListener('click', () => {
-    for (const category of categories) {
-      const selected = category === button;
-      category.setAttribute('aria-pressed', String(selected));
-      document.getElementById(category.getAttribute('aria-controls')).hidden = !selected;
-    }
-  });
+  button.addEventListener('click', () => showCategory(button.getAttribute('aria-controls')));
 }
+
+// Reveal the destination before the browser follows the fragment link.
+document.getElementById('browse-2d').addEventListener('click', event => {
+  if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  if (event.target.closest('a.project-card')) showCategory('games-2d');
+});
+
+function revealLinkedProject() {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target?.matches('#games-2d .detail-card') && target.closest('[hidden]')) {
+    showCategory('games-2d');
+    target.scrollIntoView();
+  }
+}
+window.addEventListener('hashchange', revealLinkedProject);
+revealLinkedProject();
