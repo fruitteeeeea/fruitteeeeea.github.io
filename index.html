@@ -588,6 +588,10 @@
       line-height: 1.78;
     }
 
+    .jam-card p {
+      flex-grow: 1;
+    }
+
     .footer {
       padding: 56px 0 80px;
       color: var(--muted);
@@ -680,6 +684,36 @@
       border-radius: var(--radius-lg);
     }
     .gallery-stage { position: relative; background: var(--bg); }
+    .gallery-placeholder:not([hidden]) {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background-color: #232428;
+      background-image: linear-gradient(rgb(10 12 16 / 48%), rgb(10 12 16 / 48%)), var(--gallery-cover, none);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #f1f1f1;
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .gallery-placeholder:not([hidden], [data-error])::before {
+      content: "";
+      width: 28px;
+      height: 28px;
+      border: 3px solid #717377;
+      border-top-color: #fafafa;
+      border-radius: 50%;
+      animation: gallery-spin .85s linear infinite;
+    }
+    @keyframes gallery-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .gallery-placeholder::before { animation: none !important; }
+    }
     .gallery-image { display: block; aspect-ratio: 16 / 9; overflow: hidden; }
     .gallery-image[hidden], .project-video[hidden] { display: none; }
     .project-video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #101014; }
@@ -705,12 +739,18 @@
     }
     .gallery-heading > :is(.meta, h3) { grid-column: 1 / -1; }
     .gallery-heading h3, .gallery-heading .gallery-summary { margin: 0; }
-    .gallery-heading .gallery-link { place-self: end; }
+    .gallery-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      place-self: end;
+    }
     .gallery-count { color: var(--accent); font-variant-numeric: tabular-nums; margin-right: 10px; }
     .gallery-caption p { margin: 6px 0 0; }
     @media (max-width: 720px) {
       .gallery-heading { grid-template-columns: 1fr; }
-      .gallery-heading .gallery-link { margin-top: 6px; }
+      .gallery-actions { margin-top: 6px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -797,7 +837,7 @@
         </div>
         <div class="browse-track" id="browse-3d" role="region" aria-labelledby="browse-3d-title" tabindex="0">
           <a class="project-card" href="portfolio-3d/dungeon.html">
-            <img src="assets/covers/01-dungeon-loot.webp" alt="地牢出口附近的武器掉落" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
+            <img src="assets/covers/dungeon-loot-cover.webp" alt="地牢中，角色身旁的战利品发出红色光柱" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
             <div class="project-body">
               <h3>地牢刷宝动作游戏</h3>
               <p>四名角色探索模块化地牢，拾取武器、搭配戒指技能，在成群的骷髅与关底 Boss 之间杀出一条路。</p>
@@ -805,7 +845,7 @@
             </div>
           </a>
           <a class="project-card" href="portfolio-3d/wasteland.html">
-            <img src="assets/covers/wasteland-main-loop.webp" alt="玩家在路边修车铺与守敌交火" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
+            <img src="assets/covers/wasteland-world.webp" alt="废土公路上的摩托车与远处的沙漠据点" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
             <div class="project-body">
               <h3>废土种植与搜打撤游戏</h3>
               <p>从基地收获作物，带着牧羊犬驾车探索废土据点，在撤离点权衡战利品与异常遗物带来的威胁。</p>
@@ -902,11 +942,15 @@
             <span class="meta"></span>
             <h3></h3>
             <p class="gallery-summary"></p>
-            <a class="button primary gallery-link">查看项目详情</a>
+            <div class="gallery-actions">
+              <a class="button primary gallery-link">查看项目详情</a>
+              <a class="button gallery-video-link" target="_blank" rel="noreferrer">观看完整视频</a>
+            </div>
           </header>
           <div class="gallery-stage">
             <button type="button" aria-label="上一项">‹</button>
             <a class="gallery-image"><img loading="lazy" fetchpriority="low" alt=""></a>
+            <span class="gallery-placeholder" role="status">加载中…</span>
             <button type="button" aria-label="下一项">›</button>
           </div>
           <div class="detail-content gallery-caption" aria-live="polite" aria-atomic="true">

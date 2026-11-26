@@ -2,6 +2,7 @@ const projects3D = [
   {
     "title": "地牢刷宝动作游戏",
     "href": "portfolio-3d/dungeon.html",
+    "videoUrl": "https://www.bilibili.com/video/BV1T71JzaENr",
     "meta": "3D Unity · 动作 RPG · 程序化地牢",
     "summary": "四名角色探索模块化地牢，拾取武器、搭配戒指技能，在成群的骷髅与关底 Boss 之间杀出一条路。",
     "slides": [
@@ -112,6 +113,7 @@ const projects3D = [
   {
     "title": "废土种植与搜打撤游戏",
     "href": "portfolio-3d/wasteland.html",
+    "videoUrl": "https://www.bilibili.com/video/BV1T71JzaEcK",
     "meta": "3D Unity · 基地种植 · 搜打撤",
     "summary": "从基地收获作物，带着牧羊犬驾车探索废土据点，在撤离点权衡战利品与异常遗物带来的威胁。",
     "slides": [
@@ -235,6 +237,7 @@ const projects3D = [
   {
     "title": "开放世界第三人称射击原型",
     "href": "portfolio-3d/open-world.html",
+    "videoUrl": "https://www.bilibili.com/video/BV1mj1JzAE9A",
     "meta": "3D Unity · 第三人称射击 · 城市交通",
     "summary": "在 PalmCity 街头越肩射击、驾驶警车过弯，观察行人交会与车流跟停。",
     "slides": [
@@ -299,7 +302,7 @@ const projects3D = [
 const galleryList = document.getElementById('games-3d');
 const template = document.getElementById('gallery-template');
 
-for (const { title, href, meta, summary, slides } of projects3D) {
+for (const { title, href, videoUrl, meta, summary, slides } of projects3D) {
   const gallery = template.content.firstElementChild.cloneNode(true);
   gallery.querySelector('h3').textContent = title;
   gallery.querySelector('.meta').textContent = meta;
@@ -308,7 +311,25 @@ for (const { title, href, meta, summary, slides } of projects3D) {
   const imageLink = gallery.querySelector('.gallery-image');
   imageLink.setAttribute('aria-haspopup', 'dialog');
   gallery.querySelector('.gallery-link').href = href;
+  const videoLink = gallery.querySelector('.gallery-video-link');
+  if (videoUrl) videoLink.href = videoUrl;
+  else videoLink.remove();
   const image = imageLink.querySelector('img');
+  const placeholder = gallery.querySelector('.gallery-placeholder');
+  const cover = document.querySelector(`.project-card[href="${href}"] img[data-project-cover]`);
+  if (cover) placeholder.style.setProperty('--gallery-cover', `url("${cover.src}")`);
+  function updatePlaceholder(media, failed = false) {
+    if ((slides[current].video ? video : image) !== media) return;
+    placeholder.toggleAttribute('data-error', failed);
+    placeholder.textContent = failed ? '加载失败' : '加载中…';
+    placeholder.hidden = !failed;
+  }
+  image.addEventListener('load', () => {
+    if (image.complete && image.naturalWidth) updatePlaceholder(image);
+  });
+  image.addEventListener('error', () => {
+    if (image.complete && !image.naturalWidth) updatePlaceholder(image, true);
+  });
   const caption = gallery.querySelector('.gallery-caption p');
   const count = gallery.querySelector('.gallery-count');
   let video;
@@ -317,6 +338,12 @@ for (const { title, href, meta, summary, slides } of projects3D) {
     video.className = 'project-video';
     video.controls = video.loop = video.muted = video.playsInline = true;
     video.preload = 'none';
+    video.addEventListener('loadeddata', () => {
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) updatePlaceholder(video);
+    });
+    video.addEventListener('error', () => {
+      if (video.error) updatePlaceholder(video, true);
+    });
     imageLink.after(video);
   }
   let current = 0;
@@ -326,6 +353,9 @@ for (const { title, href, meta, summary, slides } of projects3D) {
     const activeRevision = ++revision;
     current = (current + step + slides.length) % slides.length;
     const slide = slides[current];
+    placeholder.hidden = false;
+    placeholder.removeAttribute('data-error');
+    placeholder.textContent = '加载中…';
     image.getAnimations().forEach(animation => animation.cancel());
     imageLink.hidden = Boolean(slide.video);
     if (video) {
@@ -337,6 +367,10 @@ for (const { title, href, meta, summary, slides } of projects3D) {
           video.src = slide.video;
           projectVideoObserver.unobserve(video);
           projectVideoObserver.observe(video);
+        } else if (video.error) {
+          video.load();
+        } else if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+          updatePlaceholder(video);
         }
       } else {
         video.pause();
