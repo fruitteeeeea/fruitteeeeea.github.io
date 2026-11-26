@@ -116,30 +116,88 @@ const projects3D = [
     "summary": "从基地收获作物，带着牧羊犬驾车探索废土据点，在撤离点权衡战利品与异常遗物带来的威胁。",
     "slides": [
       {
+        "video": "portfolio-3d/assets/wasteland/main-loop.webm",
+        "poster": "portfolio-3d/assets/wasteland/main-loop.webp",
+        "alt": "废土搜打撤主循环",
+        "caption": "玩家驾车穿过荒漠，在路边修车铺与守敌交火，搜取物资后打开战地地图查看路线。"
+      },
+      {
+        "video": "portfolio-3d/assets/wasteland/outpost-drive.webm",
+        "poster": "portfolio-3d/assets/wasteland/outpost-drive.webp",
+        "alt": "驾车探索废土据点",
+        "caption": "玩家在战地地图上查看据点位置，随后骑上摩托，沿荒漠公路加速驶向据点。"
+      },
+      {
+        "video": "portfolio-3d/assets/wasteland/combat-loot.webm",
+        "poster": "portfolio-3d/assets/wasteland/combat-loot.webp",
+        "alt": "战斗与战利品搜刮",
+        "caption": "玩家在核心材料库与守敌交火，随后搜查倒地的敌人，把武器和物资收入背包。"
+      },
+      {
+        "video": "portfolio-3d/assets/wasteland/extraction-fight.webm",
+        "poster": "portfolio-3d/assets/wasteland/extraction-fight.webp",
+        "alt": "撤离点清除追兵",
+        "caption": "玩家守在绿色撤离圈内，击倒逼近的追兵，画面上方的剩余追兵数降至零。"
+      },
+      {
+        "video": "portfolio-3d/assets/wasteland/base-farming.webm",
+        "poster": "portfolio-3d/assets/wasteland/base-farming.webp",
+        "alt": "基地设施与种田",
+        "caption": "玩家穿过基地来到农场，在俯视界面中选取田格种植作物，收获的玉米落在田里供玩家拾取。"
+      },
+      {
+        "video": "portfolio-3d/assets/wasteland/player-mobility.webm",
+        "poster": "portfolio-3d/assets/wasteland/player-mobility.webp",
+        "alt": "角色机动演示",
+        "caption": "玩家在测试场冲刺，翻越不同高度的障碍后接滑铲，再向高台发射钩锁，借力登顶。"
+      },
+      {
+        "video": "portfolio-3d/assets/wasteland/player-weapons.webm",
+        "poster": "portfolio-3d/assets/wasteland/player-weapons.webp",
+        "alt": "三种玩家武器演示",
+        "caption": "玩家在测试场依次使用三种武器射击，近处的敌人受击后被击飞，远处的敌群在连续射击中倒下。"
+      },
+      {
+        "video": "portfolio-3d/assets/wasteland/enemy-encounters.webm",
+        "poster": "portfolio-3d/assets/wasteland/enemy-encounters.webp",
+        "alt": "多种敌人与垂直关卡战斗",
+        "caption": "玩家先在测试场迎击不同类型的敌人，随后登上橙色平台，与对面低处的敌人交火。"
+      },
+      /* 暂停展示
+      {
         "src": "portfolio-3d/assets/wasteland/01-base-harvest.webp",
         "alt": "基地田格中的玉米收获",
         "caption": "成熟玉米从田格中弹出，落地后可由玩家拾取。"
       },
+      */
+      /* 暂停展示
       {
         "src": "portfolio-3d/assets/wasteland/02-extraction-risk.webp",
         "alt": "撤离点的异常遗物风险评估",
         "caption": "在撤离点选中异常遗物后，面板显示丢弃它可将总威胁从 99 降至 57。"
       },
+      */
+      /* 暂停展示
       {
         "src": "portfolio-3d/assets/wasteland/03-vault.webp",
         "alt": "角色冲刺翻越矮路障",
         "caption": "角色在冲刺中单手撑住矮路障，借势翻到另一侧。"
       },
+      */
+      /* 暂停展示
       {
         "src": "portfolio-3d/assets/wasteland/04-grapple.webp",
         "alt": "钩锁将角色拉向集装箱",
         "caption": "钩锁挂住高处的集装箱，绳索收紧后将角色拉向锚点。"
       },
+      */
+      /* 暂停展示
       {
         "src": "portfolio-3d/assets/wasteland/05-dog-boarding.webp",
         "alt": "牧羊犬从车后跃上摩托",
         "caption": "骑手就位后，牧羊犬会自行绕到摩托车后方，跃上乘客座。"
       },
+      */
       {
         "src": "portfolio-3d/assets/wasteland/06-vehicles.webp",
         "alt": "五种载具并排展示",
@@ -160,11 +218,13 @@ const projects3D = [
         "alt": "Web 地图设计与 Unity 烘焙结果对照",
         "caption": "同一份地图数据烘焙到 Unity 后，河弯、桥头和东岸据点的接路都与 Web 工作台中的设计对应。"
       },
+      /* 暂停展示
       {
         "src": "portfolio-3d/assets/wasteland/10-cover-fire.webp",
         "alt": "步枪掠夺者从掩体后起身开火",
         "caption": "步枪掠夺者从低掩体后起身，等枪口越过护栏才向玩家开火。"
       },
+      */
       {
         "src": "portfolio-3d/assets/wasteland/11-enemy-distribution.webp",
         "alt": "路边修车铺与核心材料库的守敌波次",
