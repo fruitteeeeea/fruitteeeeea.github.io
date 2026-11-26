@@ -1,3 +1,15 @@
+// Reveal each cover shortly before it enters the page or its horizontal track.
+const coverObserver = new IntersectionObserver(entries => {
+  for (const { target: image, isIntersecting } of entries) {
+    if (isIntersecting) {
+      image.parentElement.querySelector('source').remove();
+      coverObserver.unobserve(image);
+    }
+  }
+}, { rootMargin: '128px 0px' });
+
+document.querySelectorAll('picture[data-deferred-cover] img').forEach(image => coverObserver.observe(image));
+
 for (const row of document.querySelectorAll('.browse-row')) {
   const track = row.querySelector('.browse-track');
   const [previous, next] = row.querySelectorAll('button');

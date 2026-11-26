@@ -367,7 +367,8 @@
     .browse-track.more-left { --fade-left: transparent; }
     .browse-track.more-right { --fade-right: transparent; }
     .browse-track .project-card { min-width: 0; scroll-snap-align: start; }
-    .browse-track .project-card > img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    picture[data-deferred-cover] { display: contents; }
+    .browse-track .project-card img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 
     .project-card {
       border-radius: var(--radius-lg);
@@ -755,8 +756,63 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
     }
+
+    .gallery-image, figure .original { cursor: zoom-in; }
+    html:has(.image-preview[open]) { overflow: hidden; }
+    .image-preview {
+      box-sizing: border-box;
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      width: fit-content;
+      max-width: min(95vw, 1800px);
+      max-height: 94dvh;
+      padding: 0;
+      border: 1px solid #575b61;
+      border-radius: 16px;
+      color: #f4f5f7;
+      background: #202227;
+      box-shadow: 0 22px 90px #0009;
+    }
+    .image-preview::backdrop { background: rgb(3 6 12 / 76%); }
+    .image-preview[open] { display: flex; flex-direction: column; }
+    .preview-stage { position: relative; min-height: 0; overflow: hidden; }
+    .image-preview img {
+      display: block;
+      min-height: 0;
+      width: auto;
+      max-width: 100%;
+      max-height: 78dvh;
+      object-fit: contain;
+      background: #141518;
+    }
+    .image-preview footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 16px;
+      overflow-y: auto;
+    }
+    .image-preview p { margin: 0; font: 1rem/1.55 system-ui, sans-serif; }
+    .image-preview button {
+      position: fixed;
+      z-index: 1;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      min-height: 44px;
+      padding: 0;
+      border: 1px solid #71757d;
+      border-radius: 999px;
+      background: rgb(12 15 21 / 80%);
+      color: inherit;
+      font: 26px/1 system-ui;
+      cursor: pointer;
+    }
+    .preview-stage button:first-of-type { left: max(8px, 2vw, env(safe-area-inset-left)); }
+    .preview-stage button:last-of-type { right: max(8px, 2vw, env(safe-area-inset-right)); }
   </style>
-<link rel="stylesheet" href="assets/image-preview.css">
 </head>
 <body>
   <nav class="nav">
@@ -837,7 +893,10 @@
         </div>
         <div class="browse-track" id="browse-3d" role="region" aria-labelledby="browse-3d-title" tabindex="0">
           <a class="project-card" href="portfolio-3d/dungeon.html">
-            <img src="assets/covers/dungeon-loot-cover.webp" alt="地牢中，角色身旁的战利品发出红色光柱" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img src="assets/covers/dungeon-loot-cover.webp" alt="地牢中，角色身旁的战利品发出红色光柱" width="640" height="360" loading="lazy" class="game-cover">
+            </picture>
             <div class="project-body">
               <h3>地牢刷宝动作游戏</h3>
               <p>四名角色探索模块化地牢，拾取武器、搭配戒指技能，在成群的骷髅与关底 Boss 之间杀出一条路。</p>
@@ -845,7 +904,10 @@
             </div>
           </a>
           <a class="project-card" href="portfolio-3d/wasteland.html">
-            <img src="assets/covers/wasteland-world.webp" alt="废土公路上的摩托车与远处的沙漠据点" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img src="assets/covers/wasteland-world.webp" alt="废土公路上的摩托车与远处的沙漠据点" width="640" height="360" loading="lazy" class="game-cover">
+            </picture>
             <div class="project-body">
               <h3>废土种植与搜打撤游戏</h3>
               <p>从基地收获作物，带着牧羊犬驾车探索废土据点，在撤离点权衡战利品与异常遗物带来的威胁。</p>
@@ -853,7 +915,10 @@
             </div>
           </a>
           <a class="project-card" href="portfolio-3d/open-world.html">
-            <img src="assets/covers/city-tour.webp" alt="PalmCity 城市巡览" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img src="assets/covers/city-tour.webp" alt="PalmCity 城市巡览" width="640" height="360" loading="lazy" class="game-cover">
+            </picture>
             <div class="project-body">
               <h3>开放世界第三人称射击原型</h3>
               <p>在 PalmCity 街头越肩射击、驾驶警车过弯，观察行人交会与车流跟停。</p>
@@ -873,7 +938,10 @@
         </div>
         <div class="browse-track" id="browse-2d" role="region" aria-labelledby="browse-2d-title" tabindex="0">
           <a class="project-card" href="#battlegalaxy">
-            <img width="640" height="360" data-project-cover loading="eager" fetchpriority="high" decoding="async" class="battlegalaxy-cover" src="assets/covers/Preview-BattleGalaxy-Combat.webp" alt="BattleGalaxy 航线对战阶段截图">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img width="640" height="360" loading="lazy" decoding="async" class="battlegalaxy-cover" src="assets/covers/Preview-BattleGalaxy-Combat.webp" alt="BattleGalaxy 航线对战阶段截图">
+            </picture>
             <div class="project-body">
               <h3>BattleGalaxy</h3>
               <p>2D Unity 策略对战游戏。通过背包整理强化飞机与装备的接触收益，再操控航线引导机群进攻或堵截敌机。</p>
@@ -881,7 +949,10 @@
             </div>
           </a>
           <a class="project-card" href="#projectrogueball">
-            <img width="640" height="434" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/Preview-RogueBall.webp" alt="ProjectRogueBall 项目截图">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img width="640" height="434" loading="lazy" decoding="async" src="assets/covers/Preview-RogueBall.webp" alt="ProjectRogueBall 项目截图">
+            </picture>
             <div class="project-body">
               <h3>ProjectRogueBall</h3>
               <p>2D 像素弹珠肉鸽。融合打砖块、道具构筑、农作物成长与 Boss 挑战，目标是把单局体验压缩到更轻量的 5 分钟节奏。</p>
@@ -889,7 +960,10 @@
             </div>
           </a>
           <a class="project-card" href="#projectidle">
-            <img width="640" height="432" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/Preview-ProjectIdle.webp" alt="ProjectIdle 项目截图">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img width="640" height="432" loading="lazy" decoding="async" src="assets/covers/Preview-ProjectIdle.webp" alt="ProjectIdle 项目截图">
+            </picture>
             <div class="project-body">
               <h3>ProjectIdle</h3>
               <p>2D 像素增量挂机游戏。重点体现成长曲线、资源收集、池化对象与轻量视觉反馈。</p>
@@ -897,7 +971,10 @@
             </div>
           </a>
           <a class="project-card" href="#projectthebazzel">
-            <img width="640" height="386" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/Preview-ProjectTheBazzel.webp" alt="ProjectTheBazzel 项目截图">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img width="640" height="386" loading="lazy" decoding="async" src="assets/covers/Preview-ProjectTheBazzel.webp" alt="ProjectTheBazzel 项目截图">
+            </picture>
             <div class="project-body">
               <h3>ProjectTheBazzel</h3>
               <p>大巴扎式弹珠游戏。结合路线探索、格子背包管理、道具组合与回合制弹珠战斗。</p>
@@ -905,7 +982,10 @@
             </div>
           </a>
           <a class="project-card" href="#projectdogfight">
-            <img width="640" height="350" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/Preview-ProjectDogFight.webp" alt="ProjectDogFight 项目截图">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img width="640" height="350" loading="lazy" decoding="async" src="assets/covers/Preview-ProjectDogFight.webp" alt="ProjectDogFight 项目截图">
+            </picture>
             <div class="project-body">
               <h3>ProjectDogFight</h3>
               <p>2D 触屏街机飞机狗斗游戏。强调高速移动、敌人行为树、矢量图形 HUD 与复古未来风表现。</p>
@@ -913,7 +993,10 @@
             </div>
           </a>
           <a class="project-card" href="#projectdrill">
-            <img width="640" height="396" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/Preview-ProjectDrill.webp" alt="ProjectDrill 项目截图">
+            <picture data-deferred-cover>
+              <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+              <img width="640" height="396" loading="lazy" decoding="async" src="assets/covers/Preview-ProjectDrill.webp" alt="ProjectDrill 项目截图">
+            </picture>
             <div class="project-body">
               <h3>ProjectDrill</h3>
               <p>带钻头的 2D 平台跳跃游戏。玩家可以钻入特定地形，利用状态切换、关卡美术与粒子反馈形成差异化体验。</p>
@@ -1091,7 +1174,10 @@
 
       <div class="prototype-grid">
         <article class="prototype-card">
-          <img width="640" height="472" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/FirstPersonDungeon.webp" alt="FirstPersonDungeon 原型截图">
+          <picture data-deferred-cover>
+            <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+            <img width="640" height="472" loading="lazy" decoding="async" src="assets/covers/FirstPersonDungeon.webp" alt="FirstPersonDungeon 原型截图">
+          </picture>
           <div class="prototype-body">
             <h3>FirstPersonDungeon</h3>
             <p>第一人称地牢原型。参考《塞尔达传说：时之笛》和《黑暗之魂》的环状迷宫结构，使用白盒关卡搭建并填充美术素材。</p>
@@ -1099,7 +1185,10 @@
           </div>
         </article>
         <article class="prototype-card">
-          <img width="640" height="356" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/ProjectDrift.webp" alt="ProjectDrift 原型截图">
+          <picture data-deferred-cover>
+            <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+            <img width="640" height="356" loading="lazy" decoding="async" src="assets/covers/ProjectDrift.webp" alt="ProjectDrift 原型截图">
+          </picture>
           <div class="prototype-body">
             <h3>ProjectDrift</h3>
             <p>3D 街机漂移游戏原型。玩家通过漂移积累更高分数，重点验证车辆手感与得分反馈。</p>
@@ -1107,7 +1196,10 @@
           </div>
         </article>
         <article class="prototype-card">
-          <img width="640" height="356" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/ProjectFactor.webp" alt="ProjectFactor 原型截图">
+          <picture data-deferred-cover>
+            <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+            <img width="640" height="356" loading="lazy" decoding="async" src="assets/covers/ProjectFactor.webp" alt="ProjectFactor 原型截图">
+          </picture>
           <div class="prototype-body">
             <h3>ProjectFactor</h3>
             <p>等距视角运输线游戏原型，探索资源运输、线路布局和空间规划的玩法可能。</p>
@@ -1115,7 +1207,10 @@
           </div>
         </article>
         <article class="prototype-card">
-          <img width="640" height="356" data-project-cover loading="eager" fetchpriority="high" decoding="async" src="assets/covers/ProjectBox.webp" alt="ProjectJumper 原型截图">
+          <picture data-deferred-cover>
+            <source media="(scripting: enabled)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+            <img width="640" height="356" loading="lazy" decoding="async" src="assets/covers/ProjectBox.webp" alt="ProjectJumper 原型截图">
+          </picture>
           <div class="prototype-body">
             <h3>ProjectJumper</h3>
             <p>竖屏平台跳跃原型，模仿 Downwell 式的纵向推进体验，适合继续扩展为移动端轻量游戏。</p>
