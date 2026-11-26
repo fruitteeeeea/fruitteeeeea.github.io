@@ -5,7 +5,7 @@
 .featured { align-self: center; }
 .screen, .original { display: block; }
 .screen img, .original img { display: block; width: 100%; height: auto; }
-.dungeon-project .original img { aspect-ratio: 16 / 9; object-fit: contain; background: #101014; }
+:is(.dungeon-project, .open-world-project) .original img { aspect-ratio: 16 / 9; object-fit: contain; background: #101014; }
 .player-bar, .footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 .player-bar { padding: 18px 22px 8px; font-size: 20px; }
 .feature-caption { padding: 0 22px 18px; color: var(--muted); font-size: 14px; }

@@ -681,11 +681,11 @@
     }
     .gallery-stage { position: relative; background: var(--bg); }
     .gallery-image { display: block; aspect-ratio: 2.15; overflow: hidden; }
-    .game-gallery:has(.gallery-link[href="portfolio-3d/dungeon.html"]) .gallery-image {
+    .game-gallery:has(.gallery-link:is([href="portfolio-3d/dungeon.html"], [href="portfolio-3d/open-world.html"])) .gallery-image {
       aspect-ratio: 16 / 9;
       background: #101014;
     }
-    .game-gallery:has(.gallery-link[href="portfolio-3d/dungeon.html"]) .gallery-image img { object-fit: contain; }
+    .game-gallery:has(.gallery-link:is([href="portfolio-3d/dungeon.html"], [href="portfolio-3d/open-world.html"])) .gallery-image img { object-fit: contain; }
     .gallery-image[hidden], .project-video[hidden] { display: none; }
     .project-video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #101014; }
     .gallery-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
@@ -819,7 +819,7 @@
             </div>
           </a>
           <a class="project-card" href="portfolio-3d/open-world.html">
-            <img src="assets/covers/01-shoulder-shot.webp" alt="街头越肩开火" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
+            <img src="assets/covers/city-tour.webp" alt="PalmCity 城市巡览" width="640" height="360" data-project-cover loading="eager" fetchpriority="high" class="game-cover">
             <div class="project-body">
               <h3>开放世界第三人称射击原型</h3>
               <p>在 PalmCity 街头越肩射击、驾驶警车过弯，观察行人交会与车流跟停。</p>

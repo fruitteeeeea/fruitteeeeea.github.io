@@ -179,6 +179,30 @@ const projects3D = [
     "summary": "在 PalmCity 街头越肩射击、驾驶警车过弯，观察行人交会与车流跟停。",
     "slides": [
       {
+        "video": "portfolio-3d/assets/open-world/city-tour.webm",
+        "poster": "portfolio-3d/assets/open-world/city-tour.webp",
+        "alt": "PalmCity 城市巡览",
+        "caption": "开始界面的镜头依次掠过棕榈大道、游艇码头和海滨游乐场。"
+      },
+      {
+        "video": "portfolio-3d/assets/open-world/city-drive.webm",
+        "poster": "portfolio-3d/assets/open-world/city-drive.webp",
+        "alt": "驾车在城市漫游",
+        "caption": "玩家驾驶警车穿过街头车流，在路口甩尾转弯，沿海滨道路继续前行。"
+      },
+      {
+        "video": "portfolio-3d/assets/open-world/vehicle-handling.webm",
+        "poster": "portfolio-3d/assets/open-world/vehicle-handling.webp",
+        "alt": "多种载具驾驶与上下车动画",
+        "caption": "玩家依次驾驶警车、跑车和越野皮卡在测试场转弯甩尾，随后展示角色拉开警车车门、上车驾驶和停车下车的动作。"
+      },
+      {
+        "video": "portfolio-3d/assets/open-world/city-traffic.webm",
+        "poster": "portfolio-3d/assets/open-world/city-traffic.webp",
+        "alt": "城市行人与车流",
+        "caption": "行人在摩天轮旁的人行道上迎面交错，镜头随后切到街口，一辆白色厢式车与对向驶来的蓝色轿车交会。"
+      },
+      {
         "src": "portfolio-3d/assets/open-world/01-shoulder-shot.webp",
         "alt": "街头越肩开火",
         "caption": "警员在 PalmCity 街头越肩开火，枪口火光和墙面上的瞄准位置同框可见。"
